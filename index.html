@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IHM Shri Shakti | Housekeeping Manager Simulator</title>
+<style>
+:root{--navy:#173751;--green:#2b7650;--gold:#e9bd4f;--bg:#f1f6f3;--ink:#1b2d39;--muted:#627482;--line:#d9e4de;--red:#b63f39;--pale:#e7f4eb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 Arial,Helvetica,sans-serif;color:var(--ink)}.wrap{max-width:1200px;margin:auto;padding:20px}.hero{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid var(--line);border-top:6px solid var(--green);border-radius:17px;padding:20px 24px}.logo{width:96px;height:96px;object-fit:contain;flex-shrink:0}.eyebrow{color:var(--green);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;margin:0}.hero h1{font-size:clamp(1.7rem,3.5vw,2.5rem);line-height:1.1;color:var(--navy);margin:4px 0}.hero p{margin:5px 0;color:var(--muted)}.credit{font-weight:bold;color:var(--green)!important}.intro{margin:16px 0;padding:16px 20px;background:var(--navy);color:white;border-radius:13px}.intro strong{color:#ffe29a}.intro p{margin:4px 0}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:15px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}.stat small{display:block;color:var(--muted);font-weight:bold;font-size:.75rem;text-transform:uppercase}.stat strong{font-size:1.5rem;color:var(--navy)}.stat span{display:block;color:var(--muted);font-size:.8rem}
+.layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:16px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;margin-bottom:16px}.panel h2{margin:0 0 7px;color:var(--navy);font-size:1.2rem}.panel h3{font-size:1rem;margin:15px 0 6px;color:var(--navy)}.muted{color:var(--muted);font-size:.9rem}.scenario{background:#f4f8f5;border-left:4px solid var(--green);padding:12px 14px;border-radius:7px;margin:12px 0}.scenario strong{color:var(--navy)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-weight:bold;font-size:.88rem;margin-bottom:5px}.field select,.field input{width:100%;padding:10px;border:1px solid #bdcdc4;border-radius:8px;background:#fff;color:var(--ink);font:inherit}.staff-list{display:grid;gap:10px}.staff-row{display:grid;grid-template-columns:1fr 100px;gap:12px;align-items:center;border-bottom:1px solid #edf1ee;padding:8px 0}.staff-row:last-child{border-bottom:0}.staff-row strong{display:block}.staff-row small{display:block;color:var(--muted)}.staff-row input{width:100%;padding:8px;border:1px solid #bdcdc4;border-radius:8px;font:inherit}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:pointer;font:inherit}.primary{background:var(--green);color:white}.secondary{background:#e8eef2;color:var(--navy)}.primary:hover{background:#205d3d}.result{display:none;margin-top:15px;border-radius:12px;padding:15px}.result.show{display:block}.result.good{background:#e4f5e9;border:1px solid #9bd1ac}.result.warn{background:#fff5dc;border:1px solid #e8cd78}.result.bad{background:#fff0ed;border:1px solid #e6aaa4}.result h3{margin:0 0 8px}.metricrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.metric{background:#ffffffb5;border:1px solid #d5e4da;border-radius:8px;padding:10px}.metric small{display:block;color:var(--muted)}.metric b{font-size:1.2rem}.checklist{padding-left:20px}.checklist li{margin:5px 0}.decision{margin-top:12px}.decision label{display:block;margin:8px 0;padding:9px 10px;border:1px solid var(--line);border-radius:8px;cursor:pointer}.decision input{margin-right:8px;accent-color:var(--green)}.rubric{width:100%;border-collapse:collapse;font-size:.88rem}.rubric td,.rubric th{padding:8px;border-bottom:1px solid var(--line);text-align:left}.rubric th{color:var(--navy)}.pill{display:inline-block;background:#e5f2e9;color:var(--green);font-weight:bold;border-radius:20px;padding:3px 9px;font-size:.76rem}footer{text-align:center;padding:14px;color:var(--muted);font-size:.8rem}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.stat:last-child{grid-column:span 2}}@media(max-width:520px){.wrap{padding:10px}.hero{padding:16px;gap:12px;align-items:flex-start}.logo{width:70px;height:70px}.controls{grid-template-columns:1fr}.staff-row{grid-template-columns:1fr 82px}.panel{padding:14px}.metricrow{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:span 2}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero"><img src="logo.png" class="logo" alt="IHM Shri Shakti logo"><div><p class="eyebrow">Training Module Activity · Rooms Division Management–II</p><h1>IHM Shri Shakti</h1><p><strong>Housekeeping Manager Simulator</strong></p><p>Plan the shift. Allocate resources. Protect service standards.</p><p class="credit">Prepared by Dr. Kiran Mayi Audina</p></div></header>
+<section class="intro"><strong>YOUR ROLE: EXECUTIVE HOUSEKEEPER</strong><p>You are managing a 100-room hotel. Demand changes, staff may be absent, and early arrivals need rooms. Build a realistic shift plan, decide which rooms take priority, and explain how you will protect quality and guest satisfaction.</p><p><strong>Learning goal:</strong> planning, resource allocation, prioritisation and trade-off analysis. This is a learning simulation; figures are illustrative, not a universal hotel staffing standard.</p></section>
+<section class="stats">
+<div class="stat"><small>Hotel inventory</small><strong>100</strong><span>guest rooms</span></div>
+<div class="stat"><small>Occupied tonight</small><strong id="occupiedStat">86%</strong><span>occupancy scenario</span></div>
+<div class="stat"><small>Rooms to service</small><strong id="workStat">34</strong><span>departure + stayover</span></div>
+<div class="stat"><small>Staff available</small><strong id="staffStat">8</strong><span>after absences</span></div>
+<div class="stat"><small>Early arrivals</small><strong id="earlyStat">8</strong><span>rooms requested early</span></div>
+</section>
+<div class="layout"><section>
+<div class="panel"><h2>1. Shift briefing</h2><p class="muted">Select a scenario to change the operational conditions. Review the brief before allocating staff.</p>
+<div class="field"><label for="scenario">Operational scenario</label><select id="scenario">
+<option value="busy">Scenario A — Busy day, 2 staff absent</option>
+<option value="surge">Scenario B — Peak occupancy, 3 staff absent</option>
+<option value="steady">Scenario C — Moderate occupancy, 1 staff absent</option>
+<option value="custom">Scenario D — Set your own conditions</option></select></div>
+<div class="controls" style="margin-top:12px">
+<div class="field"><label for="occupancy">Occupancy (%)</label><input id="occupancy" type="number" min="30" max="100" value="86"></div>
+<div class="field"><label for="departures">Check-out rooms</label><input id="departures" type="number" min="0" max="100" value="26"></div>
+<div class="field"><label for="stayovers">Stayover service rooms</label><input id="stayovers" type="number" min="0" max="100" value="8"></div>
+<div class="field"><label for="early">Early-arrival rooms needed</label><input id="early" type="number" min="0" max="30" value="8"></div>
+<div class="field"><label for="available">Attendants available</label><input id="available" type="number" min="1" max="20" value="8"></div>
+<div class="field"><label for="minutes">Average minutes per check-out room</label><input id="minutes" type="number" min="15" max="60" value="30"></div>
+</div>
+<div class="scenario" id="brief"><strong>Situation:</strong> 26 check-out rooms and 8 stayover rooms need attention. Eight attendants are available. Eight early arrivals are expected. Front Office needs reliable room-ready updates.</div>
+</div>
+<div class="panel"><h2>2. Allocate your team</h2><p class="muted">Assign attendants to each workstream. Total assigned staff cannot exceed staff available. You may keep staff in reserve, but explain how you will use them.</p>
+<div class="staff-list">
+<div class="staff-row"><div><strong>Check-out / departure rooms</strong><small>Priority: inspect, clean, replenish and release rooms for arriving guests.</small></div><input id="checkoutStaff" type="number" min="0" max="20" value="5" aria-label="Staff assigned to checkout rooms"></div>
+<div class="staff-row"><div><strong>Stayover service</strong><small>Routine service and guest requests in occupied rooms.</small></div><input id="stayStaff" type="number" min="0" max="20" value="1" aria-label="Staff assigned to stayover rooms"></div>
+<div class="staff-row"><div><strong>Public areas / urgent requests</strong><small>Maintain lobby, corridors, washrooms and urgent guest needs.</small></div><input id="publicStaff" type="number" min="0" max="20" value="1" aria-label="Staff assigned to public areas"></div>
+<div class="staff-row"><div><strong>Inspection / runner / relief</strong><small>Room inspections, linen support, replenishment and contingency cover.</small></div><input id="reliefStaff" type="number" min="0" max="20" value="1" aria-label="Staff assigned to inspection and relief"></div>
+</div>
+<div class="metricrow"><div class="metric"><small>Assigned staff</small><b id="assigned">8</b></div><div class="metric"><small>Staff remaining</small><b id="remaining">0</b></div><div class="metric"><small>Estimated departure workload</small><b id="hours">13.0 hrs</b></div></div>
+</div>
+<div class="panel"><h2>3. Set your service priorities</h2><p class="muted">Choose one decision in each category. These choices affect your operational review.</p>
+<div class="decision"><strong>A. Room-release priority</strong>
+<label><input type="radio" name="priority" value="early" checked> Prioritise rooms promised to early arrivals, while maintaining the inspection standard.</label>
+<label><input type="radio" name="priority" value="sequence"> Clean rooms in floor-number order, regardless of arrival needs.</label>
+<label><input type="radio" name="priority" value="vip"> Prioritise VIP rooms only; review other arrivals later.</label></div>
+<div class="decision"><strong>B. Quality control</strong>
+<label><input type="radio" name="quality" value="inspect" checked> Retain a risk-based inspection process and report realistic room-ready times.</label>
+<label><input type="radio" name="quality" value="skip"> Skip inspections to release more rooms quickly.</label>
+<label><input type="radio" name="quality" value="all"> Have the supervisor inspect every room personally, even if this delays all releases.</label></div>
+<div class="decision"><strong>C. Coordination</strong>
+<label><input type="radio" name="coordination" value="coordinate" checked> Share a live room-priority list with Front Office and update delays proactively.</label>
+<label><input type="radio" name="coordination" value="silent"> Wait until all rooms are ready before updating Front Office.</label>
+<label><input type="radio" name="coordination" value="promise"> Promise every early-arrival room immediately, regardless of capacity.</label></div>
+<div class="actions"><button class="btn primary" id="review">Review my shift plan</button><button class="btn secondary" id="reset">Reset simulation</button></div>
+<div class="result" id="result" aria-live="polite"></div>
+</div>
+</section>
+<aside>
+<div class="panel"><h2>Manager's dashboard</h2><p class="muted">Use the numbers to make a defensible plan, not simply to maximise speed.</p>
+<table class="rubric"><tr><th>Indicator</th><th>What to consider</th></tr><tr><td>Workload</td><td>Number and type of rooms; time available before arrivals.</td></tr><tr><td>Staffing</td><td>Absence, workload balance, travel time and skill level.</td></tr><tr><td>Room readiness</td><td>Early arrivals, departures, inspection and maintenance holds.</td></tr><tr><td>Service quality</td><td>Cleanliness, safety, guest privacy and standard procedures.</td></tr><tr><td>Coordination</td><td>Accurate updates to Front Office and clear shift handover.</td></tr></table>
+<h3>Planning reminder</h3><p class="muted">A well-designed work schedule specifies tasks, time, responsibility and coverage. A good manager adapts the plan when occupancy, absences or urgent requests change.</p>
+<span class="pill">Curriculum connection: Unit 1</span></div>
+<div class="panel"><h2>4. Reflection for discussion</h2><p class="muted">After reviewing your plan, prepare short answers to these questions:</p><ol><li>Which rooms did you prioritise, and why?</li><li>What service standard did you refuse to compromise?</li><li>What is the trade-off in your staffing allocation?</li><li>What would you change if two more attendants called in sick?</li><li>What information must be shared with Front Office and the next shift?</li></ol></div>
+<div class="panel"><h2>Scoring guide</h2><p class="muted">The score is formative feedback, not a measure of real-world productivity. Discuss why a decision is appropriate for this scenario.</p><table class="rubric"><tr><td>Resource allocation</td><td>30 points</td></tr><tr><td>Room prioritisation</td><td>25 points</td></tr><tr><td>Quality and safety</td><td>25 points</td></tr><tr><td>Coordination</td><td>20 points</td></tr><tr><th>Total</th><th>100 points</th></tr></table></div>
+</aside></div>
+<footer>Rooms Division Management–II · BHA 505 · IHM Shri Shakti · Training module activity prepared by Dr. Kiran Mayi Audina</footer>
+</main>
+<script>
+const presets={
+busy:{occupancy:86,departures:26,stayovers:8,early:8,available:8,minutes:30,brief:"26 check-out rooms and 8 stayover rooms need attention. Two attendants are absent. Eight early arrivals are expected. Front Office needs reliable room-ready updates."},
+surge:{occupancy:97,departures:34,stayovers:12,early:14,available:7,minutes:32,brief:"Peak occupancy has created 34 check-outs and 12 stayover services. Three attendants are absent, only seven are available, and 14 early arrivals are expected. You must prioritise transparently and communicate realistic times."},
+steady:{occupancy:72,departures:18,stayovers:10,early:4,available:9,minutes:28,brief:"Moderate occupancy: 18 check-outs and 10 stayover services. One attendant is absent. Four early arrivals are expected. Use the extra capacity to support inspections, public areas and preventive checks."}
+};
+const $=id=>document.getElementById(id);
+function loadScenario(v){
+ if(!presets[v]){updateStats();return;}
+ const p=presets[v];Object.keys(p).forEach(k=>{if($(k))$(k).value=p[k];});
+ $("brief").innerHTML="<strong>Situation:</strong> "+p.brief;updateStats();
+}
+function val(id){return Math.max(0,Number($(id).value)||0)}
+function updateStats(){
+ const d=val("departures"),s=val("stayovers"),a=val("available"),m=val("minutes");
+ $("occupiedStat").textContent=val("occupancy")+"%";$("workStat").textContent=d+s;$("staffStat").textContent=a;$("earlyStat").textContent=val("early");
+ const total=val("checkoutStaff")+val("stayStaff")+val("publicStaff")+val("reliefStaff");
+ $("assigned").textContent=total;$("remaining").textContent=a-total;
+ $("hours").textContent=(d*m/60).toFixed(1)+" hrs";
+}
+["occupancy","departures","stayovers","early","available","minutes","checkoutStaff","stayStaff","publicStaff","reliefStaff"].forEach(id=>$(id).addEventListener("input",()=>{ $("scenario").value="custom";updateStats();}));
+$("scenario").addEventListener("change",e=>loadScenario(e.target.value));
+function selected(name){return document.querySelector(`input[name="${name}"]:checked`)?.value}
+$("review").addEventListener("click",()=>{
+ const d=val("departures"),s=val("stayovers"),early=val("early"),avail=val("available"),mins=val("minutes");
+ const c=val("checkoutStaff"),st=val("stayStaff"),p=val("publicStaff"),r=val("reliefStaff"),assigned=c+st+p+r;
+ const priority=selected("priority"),quality=selected("quality"),coord=selected("coordination");
+ let score=0,notes=[];
+ if(assigned<=avail&&assigned>0){score+=30;notes.push("Staffing: your allocation fits the available headcount.");}
+ else if(assigned>avail){notes.push(`Staffing: you assigned ${assigned} attendants but only ${avail} are available. Rebalance the plan.`);}
+ else notes.push("Staffing: assign staff to the workstreams rather than leaving the shift uncovered.");
+ if(c>=Math.ceil(avail*.45)&&d>0){score+=10;notes.push("Workload: a substantial share of the team is assigned to departure rooms.");}
+ else notes.push("Workload: consider whether departure-room staffing matches the check-out workload and arrival deadline.");
+ if(st>= (s>0?1:0)){score+=5;notes.push("Stayover: occupied-room service has coverage.");}
+ if(p>=1){score+=5;notes.push("Public areas: there is dedicated coverage for visible guest areas and urgent requests.");}
+ if(r>=1){score+=10;notes.push("Relief/inspection: you have retained capacity for room checks, linen support or unexpected issues.");}
+ if(priority==="early"){score+=25;notes.push("Prioritisation: early-arrival needs inform room sequencing without removing the quality check.");}
+ else notes.push("Prioritisation: use arrival commitments and room status—not floor order alone—to sequence work.");
+ if(quality==="inspect"){score+=25;notes.push("Quality: inspection and standards remain part of room release.");}
+ else if(quality==="all"){score+=10;notes.push("Quality: inspection is retained, but one-person inspection of every room may become a bottleneck; consider risk-based checks and trained inspectors.");}
+ else notes.push("Quality risk: skipping inspection can release rooms with cleanliness, safety or maintenance issues.");
+ if(coord==="coordinate"){score+=20;notes.push("Coordination: proactive updates allow Front Office to manage expectations.");}
+ else if(coord==="silent"){score+=5;notes.push("Coordination risk: late updates leave Front Office unable to manage guest expectations.");}
+ else notes.push("Coordination risk: avoid promising room times without confirming operational capacity.");
+ score=Math.min(100,score);
+ const over=assigned>avail;
+ const hours=d*mins/60;
+ const pressure=(d+s)/Math.max(1,avail);
+ let cls=score>=80&&!over?"good":score>=55?"warn":"bad";
+ const result=$("result");result.className="result show "+cls;
+ result.innerHTML=`<h3>Shift review: ${score}/100 ${score>=80&&!over?"— Strong operational plan":score>=55?"— Plan needs refinement":"— Rework required"}</h3>
+ <div class="metricrow"><div class="metric"><small>Staff assigned</small><b>${assigned}/${avail}</b></div><div class="metric"><small>Departure cleaning workload*</small><b>${hours.toFixed(1)} hrs</b></div><div class="metric"><small>Rooms per available attendant</small><b>${pressure.toFixed(1)}</b></div></div>
+ <p class="muted">*Workload estimate uses check-out rooms × average minutes. It excludes stayover service, travel, breaks, replenishment, inspections and disruptions, so it is not a full shift forecast.</p>
+ <h3>Manager feedback</h3><ul class="checklist">${notes.map(n=>`<li>${n}</li>`).join("")}</ul>
+ <h3>Next decision</h3><p>${early>c*2?"Early-arrival demand is high relative to your departure-room team. Consider reallocating staff, identifying rooms that can be released first, and agreeing realistic room-ready updates with Front Office.":"Review room-by-room priorities with Front Office, keep a clear status list, and adjust the allocation if room readiness or guest requests change."}</p>
+ <p><strong>Discussion:</strong> Which trade-off did you make between speed, quality and coverage? What evidence would you need before promising a room-ready time?</p>`;
+ result.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+$("reset").addEventListener("click",()=>{
+ $("scenario").value="busy";loadScenario("busy");
+ $("checkoutStaff").value=5;$("stayStaff").value=1;$("publicStaff").value=1;$("reliefStaff").value=1;
+ document.querySelector('input[name="priority"][value="early"]').checked=true;
+ document.querySelector('input[name="quality"][value="inspect"]').checked=true;
+ document.querySelector('input[name="coordination"][value="coordinate"]').checked=true;
+ $("result").className="result";updateStats();
+});
+loadScenario("busy");updateStats();
+</script></body></html>
